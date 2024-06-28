@@ -164,7 +164,7 @@ class RemoteSacli:
             list[bool, dict]
         """
         self._RpcClient.UserPropPut(user, {key: value}, noui)
-        user_profile = self._RpcClient.UserPropProfileMultiGet(pfilt=[user,])
+        user_profile = self._RpcClient.UserPropMultiGet(pfilt=[user,])
         return self._RpcClient.UserPropReplace(
             user,
             user_profile[user]
@@ -187,7 +187,7 @@ class RemoteSacli:
         Returns:
             dict[str, dict[str, XML_RPC_VAL]]: Dictionary of profiles retrieved
         """
-        return self._RpcClient.UserPropProfileMultiGet(pfilt, tfilt)
+        return self._RpcClient.UserPropMultiGet(pfilt, tfilt)
 
     def UserPropDel(
         self,
@@ -204,7 +204,7 @@ class RemoteSacli:
             list[bool, dict]
         """
         self._RpcClient.UserPropDel(user, [key,])
-        user_profile = self._RpcClient.UserPropProfileMultiGet(pfilt=[user,])
+        user_profile = self._RpcClient.UserPropMultiGet(pfilt=[user,])
         return self._RpcClient.UserPropReplace(
             user,
             user_profile[user]
