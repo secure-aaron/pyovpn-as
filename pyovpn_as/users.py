@@ -491,3 +491,33 @@ class UserOperations(ProfileOperations):
         if not user_profile.has_group:
             logger.debug(f'User not a part of a group, nothing has changed')
         self._sacli.UserPropDel(username, 'conn_group')
+
+    @utils.debug_log_call()
+    def set_user_local_password(
+        self,
+        user: Union[str, UserProfile],
+        new_pass: str,
+        cur_pass: str=None,
+        ignore_checks: bool=False
+    ) -> None:
+        """Change the password for the given user
+
+        Args:
+            user (Union[str, UserProfile]): User whose password we want changed
+            new_pass (String): New password
+            cur_pass (String, default=None) Current password
+            ignore_checks (bool, default=True) Ignore checks?
+
+        Raises:
+            AccessServerProfileNotFoundError: User does not have a user/pass 
+                login connection profile configured or user does not exist.
+            AccessServerProfileExistsError: Username provided is the name of a
+                group, not a user
+        """
+        username = str(user)
+
+        # Validate user exists
+        self.get_user(username)
+
+        # Set the password
+        self._sacli.SetLocalPassword(username, new_pass, cur_pass=None, ignore_checks=True)
