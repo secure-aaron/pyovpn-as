@@ -500,13 +500,13 @@ class UserOperations(ProfileOperations):
         cur_pass: str=None,
         ignore_checks: bool=False
     ) -> None:
-        """Change the password for the given user
+        """Set the password for a user if using local auths
 
         Args:
-            user (Union[str, UserProfile]): User whose password we want changed
+            user (Union[str, UserProfile]): User  password we want changed
             new_pass (String): New password
             cur_pass (String, default=None) Current password
-            ignore_checks (bool, default=True) Ignore checks?
+            ignore_checks (bool, default=True) Ignore checks
 
         Raises:
             AccessServerProfileNotFoundError: User does not have a user/pass 
@@ -520,4 +520,4 @@ class UserOperations(ProfileOperations):
         self.get_user(username)
 
         # Set the password
-        self._sacli.SetLocalPassword(username, new_pass, cur_pass=None, ignore_checks=True)
+        self._sacli.SetLocalPassword(username, new_pass, cur_pass, ignore_checks)
