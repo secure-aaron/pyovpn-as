@@ -500,10 +500,10 @@ class UserOperations(ProfileOperations):
         cur_pass: str=None,
         ignore_checks: bool=False
     ) -> None:
-        """Set the password for a user if using local auths
+        """Set the password for a user if using local auth
 
         Args:
-            user (Union[str, UserProfile]): User  password we want changed
+            user (Union[str, UserProfile]): The user whose password is to be changed
             new_pass (String): New password
             cur_pass (String, default=None) Current password
             ignore_checks (bool, default=True) Ignore checks
